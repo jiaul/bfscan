@@ -271,6 +271,7 @@ java -cp target/bfscan-0.1-SNAPSHOT-fatjar.jar io.bfscan.SSUniqBFScan \
 java -cp target/bfscan-0.1-SNAPSHOT-fatjar.jar io.bfscan.SSComDIIBFScan \
 <doc. vectors> <# top doc> <dictionary> <# thread> <query file> <# doc in coll.> \
 <cluster assignment> <cluster centers> <word2vec query> <# cluster for Sel. Search>
+```
 
 License
 -------
