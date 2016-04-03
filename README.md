@@ -242,6 +242,35 @@ spark-submit --class io.bfscan.ComUniqTermBFScanSparkLocal --driver-memory 100G 
 target/bfscan-0.1-SNAPSHOT-fatjar.jar <document vectors path> <dictionary> <query file> <# doc to return> <# thread>
 ```
 
+Selective Search Using Brute-Force Scan
+---------------------------------------
+In these implementations, the entire document collection is partitioned into a number of topically homogeneous clusters using k-mean algorithm. Given a query, we compute the similarity between the query and the cluster centroids  and then select top k clusters. Finally, documents from these clusters are searched to generate the rank list for the query.  All codes are in java (multithreaded) and run on single machine. As before, we have several implementations.
+
+**How to run:**
+
+**1. On uncompressed document as flat array of terms** 
+```
+java -cp target/bfscan-0.1-SNAPSHOT-fatjar.jar io.bfscan.SSBFScan \
+<doc. vectors path> <# top doc> <dictionary path> <# thread> <query file> <# doc in collection> \
+<cluster assignment> <cluster centers> <word2vec query> <# cluster for Sel. Search>
+```
+**2. On compressed document as flat array of terms**
+```
+java -cp target/bfscan-0.1-SNAPSHOT-fatjar.jar io.bfscan.SSComBFScan \
+<doc. vectors path> <# top documents> <dictionary path> <# thread> <query file> <# doc in collection> \
+<cluster assignment> <cluster centers> <word2vec query> <# cluster for Sel. Search>
+```
+**3. On uncompressed  document vector of unique terms (sorted) and their tfs**
+```
+java -cp target/bfscan-0.1-SNAPSHOT-fatjar.jar io.bfscan.SSUniqBFScan \
+<doc. vectors path> <# top doc> <dictionary path> <# thread> <query file> <# doc in collection> \
+<cluster assignment> <cluster centers> <word2vec query> <# cluster for Sel. Search>
+```
+**4. On compressed  document vector of unique terms (sorted) and their tfs**
+```
+java -cp target/bfscan-0.1-SNAPSHOT-fatjar.jar io.bfscan.SSComDIIBFScan \
+<doc. vectors> <# top doc> <dictionary> <# thread> <query file> <# doc in coll.> \
+<cluster assignment> <cluster centers> <word2vec query> <# cluster for Sel. Search>
 
 License
 -------
